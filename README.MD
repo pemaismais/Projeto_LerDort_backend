@@ -69,5 +69,5 @@ O projeto segue a estrutura MVC (Model-View-Controller).
 - **PATCH `/api/user`**: Atualizar informações do usuário autenticado.
 
 ---
-## [Front-end desenvolvido em Angular](https://github.com/allandomini/PI_fisio_front)
+## [Front-end desenvolvido em Angular](https://github.com/pemaismais/Projeto_LerDort_frontend)
 
