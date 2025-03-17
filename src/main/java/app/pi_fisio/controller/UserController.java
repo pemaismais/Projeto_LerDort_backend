@@ -7,6 +7,10 @@ import app.pi_fisio.dto.UserPageDTO;
 import app.pi_fisio.entity.JointIntensity;
 import app.pi_fisio.entity.User;
 import app.pi_fisio.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -26,11 +30,13 @@ import java.util.Map;
 @Log4j2
 @RestController
 @RequestMapping("/api/user")
+@Tag(name = "Usuário", description = "Endpoints para gestão de usuários")
 public class UserController {
 
     @Autowired
     UserService userService;
 
+    @Operation(summary = "Criar usuário", description = "Criação de um novo usuário, disponível apenas para ADMINs.")
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> create(@RequestBody UserDTO userDTO) {
@@ -49,6 +55,7 @@ public class UserController {
 
     }
 
+    @Operation(summary = "Atualizar usuário", description = "Atualiza um usuário existente, disponível apenas para ADMINs.")
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody UserDTO userDTO) {
@@ -59,6 +66,7 @@ public class UserController {
         return ResponseEntity.ok(userService.update(id, userDTO));
     }
 
+    @Operation(summary = "Excluir usuário", description = "Exclui um usuário pelo ID, disponível apenas para ADMINs.")
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> delete(@PathVariable Long id) {
@@ -69,7 +77,7 @@ public class UserController {
         userService.delete(id);
         return ResponseEntity.ok("User with the id: " + id + " has been deleted!");
     }
-
+    @Operation(summary = "Buscar usuário por ID", description = "Busca um usuário específico pelo ID, disponível apenas para ADMINs.")
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserDTO> getPersonById(@PathVariable Long id) {
@@ -80,6 +88,7 @@ public class UserController {
         return ResponseEntity.ok(userService.findById(id));
     }
 
+    @Operation(summary = "Listar usuários", description = "Retorna uma lista paginada de usuários, disponível apenas para ADMINs.")
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserPageDTO> getAll(
@@ -91,6 +100,10 @@ public class UserController {
         return ResponseEntity.ok(userPageDTO);
     }
 
+    @Operation(summary = "Atualizar usuário autenticado", description = "Atualiza parcialmente os dados do usuário autenticado baseado no JWT.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Lista de usuários retornada com sucesso")
+    })
     @PatchMapping
     public ResponseEntity<UserDTO> patchUpdateByJwt(
             @RequestBody UserDTO userDTO,
@@ -103,6 +116,10 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "Buscar usuário autenticado", description = "Retorna as informações do usuário autenticado baseado no JWT.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Usuário atualizado com sucesso")
+    })
     @GetMapping("/info")
     public ResponseEntity<UserDTO> getUserByJwt(
             @RequestHeader("Authorization") String authorizationHeader)

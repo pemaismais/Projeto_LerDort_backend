@@ -7,6 +7,11 @@ import app.pi_fisio.entity.Intensity;
 import app.pi_fisio.entity.Joint;
 import app.pi_fisio.queryfilters.ExerciseQueryFilter;
 import app.pi_fisio.service.ExerciseService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -25,11 +30,17 @@ import java.util.Set;
 @Log4j2
 @RestController
 @RequestMapping("/api/exercise")
+@Tag(name = "Exercício", description = "Endpoints para gestão dos Exercícios")
 public class ExerciseController {
 
     @Autowired
     ExerciseService exerciseService;
 
+    @Operation(summary = "Criar um novo exercício", description = "Apenas administradores podem criar exercícios.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Exercício criado com sucesso"),
+            @ApiResponse(responseCode = "403", description = "Acesso negado", content = @Content)
+    })
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ExerciseDTO> create(@RequestBody ExerciseDTO exerciseDTO) throws Exception {
@@ -44,6 +55,12 @@ public class ExerciseController {
 
     }
 
+    @Operation(summary = "Atualizar um exercício", description = "Apenas administradores podem atualizar exercícios.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Exercício atualizado com sucesso"),
+            @ApiResponse(responseCode = "403", description = "Acesso negado", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Exercício não encontrado", content = @Content)
+    })
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> update(@PathVariable Long id, @RequestBody ExerciseDTO exerciseDTO) throws Exception {
@@ -53,6 +70,12 @@ public class ExerciseController {
 
     }
 
+    @Operation(summary = "Deletar um exercício", description = "Apenas administradores podem deletar exercícios.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Exercício deletado com sucesso"),
+            @ApiResponse(responseCode = "403", description = "Acesso negado", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Exercício não encontrado", content = @Content)
+    })
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> delete(@PathVariable Long id) {
@@ -61,6 +84,11 @@ public class ExerciseController {
         return ResponseEntity.ok("Exercise with the id: " + id + " has been deleted!");
     }
 
+    @Operation(summary = "Buscar exercício por ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Exercício encontrado"),
+            @ApiResponse(responseCode = "404", description = "Exercício não encontrado", content = @Content)
+    })
     @GetMapping("/{id}")
 //    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ExerciseDTO> getExerciseById(@PathVariable Long id) throws Exception {
@@ -69,6 +97,7 @@ public class ExerciseController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "Listar todos os exercícios com paginação e filtros")
     @GetMapping
 //    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ExercisePageDTO> getAll
@@ -81,7 +110,7 @@ public class ExerciseController {
         return ResponseEntity.ok(response);
     }
 
-    // Pegar os exercicios recomendados baseado na Intensidade e Local de dor
+    @Operation(summary = "Buscar exercícios por articulação e intensidade")
     @GetMapping("/findByJointAndIntensity")
     public ResponseEntity<List<ExerciseDTO>> getByJointAndIntensity(@RequestParam Joint joint, @RequestParam Intensity intensity) throws Exception {
         log.info("Recebida requisição para buscar exercícios - Articulação: {}, Intensidade: {}", joint, intensity);
@@ -89,7 +118,7 @@ public class ExerciseController {
             return ResponseEntity.ok(response);
     }
 
-    // Pegar os exercicios recomendados baseado nas dores de pessoa
+    @Operation(summary = "Buscar exercícios recomendados para um usuário")
     @GetMapping("/getByUser")
     public ResponseEntity<List<ExerciseDTO>> getByUser(@RequestParam Long userId) throws Exception {
         log.info("Recebida requisição para buscar exercícios recomendados para usuário ID {}", userId);
