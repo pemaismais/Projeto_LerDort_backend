@@ -10,6 +10,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.Optional;
 
+@Log4j2
 @Service
 public class AuthService {
     @Value("${google.client.id}")
@@ -41,6 +43,7 @@ public class AuthService {
         // Verifica o token ID
         GoogleIdToken idToken = verifier.verify(idTokenString);
         if (idToken == null) {
+            log.warn("Token do Google inválido recebido.");
             throw new InvalidGoogleTokenException("Invalid Google ID Token");
         }
         // Get profile information from payload
@@ -51,8 +54,11 @@ public class AuthService {
         String name = (String) payload.get("name");
 
         User user = userRepository.findByEmail(email)
-                .orElseGet(() -> createUser(userId, email, name, picture));
-
+                .orElseGet(() -> {
+                    log.info("Usuário {} não encontrado no banco. Criando novo usuário.", email);
+                    return createUser(userId, email, name, picture);
+                });
+        log.info("Usuário {} autenticado com sucesso.", email);
         return createTokenResponse(user);
     }
 
@@ -76,6 +82,7 @@ public class AuthService {
                 .pictureUrl(picture)
                 .build();
         userRepository.save(user);
+        log.info("Usuário {} criado com sucesso.", email);
         return user;
     }
 

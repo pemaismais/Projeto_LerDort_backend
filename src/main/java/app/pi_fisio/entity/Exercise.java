@@ -27,6 +27,7 @@ public class Exercise {
     private String name;
 
     @NotNull
+    @Column(length=1024)
     private String description;
 
     private String reps;
