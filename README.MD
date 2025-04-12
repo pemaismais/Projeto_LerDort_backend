@@ -1,10 +1,9 @@
+
 <div align="center">
   <img src="https://github.com/user-attachments/assets/996821ed-eed1-4338-a19e-4cff0b632282" alt="Imagem do Projeto" width="300">
 </div>
 <br>
 O PROJETO LER & DORT tem como objetivo investigar as dores e desconfortos presentes entre professores do Ensino Médio, com foco em Lesões por Esforços Repetitivos (LER) e Distúrbios Osteomusculares Relacionados ao Trabalho (DORT). A solução proposta visa melhorar a saúde e o bem-estar dos professores por meio de recomendações personalizadas de exercícios para aliviar as dores.
-
-Este é o backend do sistema, desenvolvido em Java Spring, que expõe uma API RESTful para autenticação, gestão de usuários e recomendação de exercícios personalizados.
 
 ## Tecnologias Utilizadas
 
@@ -110,5 +109,5 @@ http://localhost:8081/swagger-ui.html
 ## Contato
 Contribuições são bem-vindas! Se você tiver sugestões de melhorias ou correções, fique à vontade para abrir uma issue ou enviar um pull request.
 
-## [Front-end desenvolvido em Angular](https://github.com/allandomini/PI_fisio_front)
-
+## [Front-end desenvolvido em Angular](https://github.com/pemaismais/Projeto_LerDort_frontend)
+---
