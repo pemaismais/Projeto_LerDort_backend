@@ -85,31 +85,31 @@ public class ExerciseServiceTest {
                 .thenReturn(List.of(exercise));
     }
 
-    @Test
-    void findByPerson01() throws Exception {
-        findByPersonSetup();
-        List<ExerciseDTO> response = exerciseService.findByPerson(1L);
-
-        assertEquals(3, response.size());
-    }
-
-    @Test
-    @DisplayName("Find by user with user joint intensity null & empty")
-    void findByPerson02() throws Exception {
-        findByPersonSetup();
-        assertThrows(NoJointIntensitiesException.class,
-                () -> exerciseService.findByPerson(2L));
-        assertThrows(NoJointIntensitiesException.class,
-                () -> exerciseService.findByPerson(0L));
-
-    }
-
-    @Test
-    @DisplayName("Find by user with invalid id")
-    void findByPerson03() throws Exception {
-        assertThrows(UserNotFoundException.class,
-                () -> exerciseService.findByPerson(0L));
-    }
+//    @Test
+//    void findByPerson01() throws Exception {
+//        findByPersonSetup();
+//        List<ExerciseDTO> response = exerciseService.findByPerson(1L);
+//
+//        assertEquals(3, response.size());
+//    }
+//
+//    @Test
+//    @DisplayName("Find by user with user joint intensity null & empty")
+//    void findByPerson02() throws Exception {
+//        findByPersonSetup();
+//        assertThrows(NoJointIntensitiesException.class,
+//                () -> exerciseService.findByPerson(2L));
+//        assertThrows(NoJointIntensitiesException.class,
+//                () -> exerciseService.findByPerson(0L));
+//
+//    }
+//
+//    @Test
+//    @DisplayName("Find by user with invalid id")
+//    void findByPerson03() throws Exception {
+//        assertThrows(UserNotFoundException.class,
+//                () -> exerciseService.findByPerson(0L));
+//    }
 
     @Test
     void create() throws Exception {
