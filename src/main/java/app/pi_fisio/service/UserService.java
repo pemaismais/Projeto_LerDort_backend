@@ -43,6 +43,15 @@ public class UserService {
         }
         User user = new User(userDTO);
         user.setId(id);
+        user.setUserId(
+                userRepository.findById(id).get().getUserId()
+        );
+
+        // Vincula user a cada JointIntensity
+        for (JointIntensity ji : user.getJointIntensities()) {
+            ji.setUser(user);
+        }
+
         log.info("Usuário atualizado com sucesso (ID: {})", id);
         return new UserDTO(userRepository.save(user));
     }
