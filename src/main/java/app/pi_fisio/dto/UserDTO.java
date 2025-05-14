@@ -18,10 +18,7 @@ public class UserDTO {
         private Long id;
         private String pictureUrl;
         private String name;
-        private String email;
         private LocalDate dateOfBirth;
-        private UserRole role;
-        private String subject;
         private List<String> classes;
         private List<JointIntensity> jointIntensities;
         
