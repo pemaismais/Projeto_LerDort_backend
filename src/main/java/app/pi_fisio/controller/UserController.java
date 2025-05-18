@@ -36,36 +36,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-//    @Operation(summary = "Criar usuário", description = "Criação de um novo usuário, disponível apenas para ADMINs.")
-//    @PostMapping
-//    @PreAuthorize("hasRole('ADMIN')")
-//    public ResponseEntity<?> create(@RequestBody UserDTO userDTO) {
-//        log.info("Recebida requisição POST para criar usuário com email: {}", userDTO.getEmail());
-//        if (userDTO.getEmail() == null || userDTO.getEmail().isEmpty()) {
-//            return ResponseEntity.badRequest().body("E-mail não pode estar vazio.");
-//        }
-//
-//            UserDTO response = userService.create(userDTO);
-//            URI location = ServletUriComponentsBuilder
-//                    .fromCurrentRequest()
-//                    .path("/{id}")
-//                    .buildAndExpand(response.getId())
-//                    .toUri();
-//            return ResponseEntity.created(location).body(response);
-//
-//    }
-
-//    @Operation(summary = "Atualizar usuário", description = "Atualiza um usuário existente, disponível apenas para ADMINs.")
-//    @PutMapping("/{id}")
-//    @PreAuthorize("hasRole('ADMIN')")
-//    public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody UserDTO userDTO) {
-//        log.info("Recebida requisição  para atualizar usuário ID: {}", id);
-//        if (userDTO.getEmail() == null || userDTO.getEmail().isEmpty()) {
-//            return ResponseEntity.badRequest().body(null);
-//        }
-//        return ResponseEntity.ok(userService.update(id, userDTO));
-//    }
-
     @Operation(summary = "Excluir usuário", description = "Exclui um usuário pelo ID, disponível apenas para ADMINs.")
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")

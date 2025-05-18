@@ -4,8 +4,8 @@ import app.pi_fisio.entity.User;
 import app.pi_fisio.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -20,7 +20,7 @@ public class UserSyncInterceptor implements HandlerInterceptor {
     private final UserRepository userRepository;
 
     @Override
-    public boolean preHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) {
+    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth instanceof JwtAuthenticationToken jwtAuth) {
