@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: pi_fisio
+  datasource:
+    url: >-
+      jdbc:mysql://${MYSQL_URL:localhost}:${MYSQL_PORT:3306}/pi_fisio?
+      sslMode=VERIFY_CA&
+      clientCertificateKeyStoreUrl=file:${CLIENT_KEYSTORE_URL_PATH}&
+      clientCertificateKeyStorePassword=${CLIENT_KEYSTORE_PASSWORD}&
+      clientCertificateKeyStoreType=${CLIENT_KEYSTORE_TYPE}&
+      trustCertificateKeyStoreUrl=file:${TRUSTSTORE_URL_PATH}&
+      trustCertificateKeyStorePassword=${TRUSTSTORE_PASSWORD}&
+      trustCertificateKeyStoreType=${TRUSTSTORE_TYPE}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  security:
+    user:
+      name: 42lkfkolrfjasdkcjanncn43124km
+      password: g43mlkgkl42jikfkjndxsj43
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_URL}
+  logging:
+    level:
+      com.zaxxer.hikari: DEBUG
+      app.pi_fisio.config: DEBUG
+
+server:
+  port: 8081
+
+frontend:
+  url: ${FRONTEND_URL}
