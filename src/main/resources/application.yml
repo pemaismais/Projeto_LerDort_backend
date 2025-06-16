@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: pi_fisio
+  profiles:
+    active: dev
+
+server:
+  port: 8081
+
+frontend:
+  url: ${FRONTEND_URL}

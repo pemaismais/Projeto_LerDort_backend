@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:mysql://${MYSQL_URL:localhost}:${MYSQL_PORT:3306}/pi_fisio?useSSL=false # URL para desenvolvimento, sem SSL.
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DATABASE_USER:root}
+    password: ${DATABASE_PASSWORD:root}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  security:
+    user:
+      name: 42lkfkolrfjasdkcjanncn43124km
+      password: g43mlkgkl42jikfkjndxsj43
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_URL}
+logging:
+  level:
+    com.zaxxer.hikari: DEBUG
+    app.pi_fisio.config: DEBUG
+    org.springframework.boot: INFO
