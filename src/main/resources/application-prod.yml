@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: >-
+      jdbc:mysql://${MYSQL_URL}:${MYSQL_PORT}/pi_fisio?
+      sslMode=VERIFY_CA&
+      clientCertificateKeyStoreUrl=file:${CLIENT_KEYSTORE_URL_PATH}&
+      clientCertificateKeyStorePassword=${CLIENT_KEYSTORE_PASSWORD}&
+      clientCertificateKeyStoreType=${CLIENT_KEYSTORE_TYPE}&
+      trustCertificateKeyStoreUrl=file:${TRUSTSTORE_URL_PATH}&
+      trustCertificateKeyStorePassword=${TRUSTSTORE_PASSWORD}&
+      trustCertificateKeyStoreType=${TRUSTSTORE_TYPE}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+  security:
+    user:
+      name: 42lkfkolrfjasdkcjanncn43124km
+      password: g43mlkgkl42jikfkjndxsj43
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_URL}

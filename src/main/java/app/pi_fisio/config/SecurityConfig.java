@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.AuditorAware;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -37,9 +38,6 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/api/auth/**").permitAll()
-                        .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/v3/api-docs/**", "swagger-ui/**", "swagger-ui.html").permitAll()
 
                         .anyRequest().authenticated())
@@ -72,5 +70,11 @@ public class SecurityConfig {
         FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<CorsFilter>(new CorsFilter(source));
         bean.setOrder(-102);
         return bean;
+    }
+
+
+    @Bean
+    public AuditorAware<String> auditorAware(){
+        return new AuditorAwareImpl();
     }
 }
