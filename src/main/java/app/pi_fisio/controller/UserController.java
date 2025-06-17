@@ -1,11 +1,7 @@
 package app.pi_fisio.controller;
 
-import app.pi_fisio.dto.ExercisePageDTO;
-import app.pi_fisio.dto.JointIntensityDTO;
 import app.pi_fisio.dto.UserDTO;
 import app.pi_fisio.dto.UserPageDTO;
-import app.pi_fisio.entity.JointIntensity;
-import app.pi_fisio.entity.User;
 import app.pi_fisio.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -15,17 +11,10 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.net.URI;
-import java.util.List;
-import java.util.Map;
 
 @Log4j2
 @RestController

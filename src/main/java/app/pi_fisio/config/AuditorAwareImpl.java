@@ -1,6 +1,5 @@
 package app.pi_fisio.config;
 
-import app.pi_fisio.entity.User;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;

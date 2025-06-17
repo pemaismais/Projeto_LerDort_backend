@@ -1,5 +1,6 @@
 package app.pi_fisio.entity;
-import lombok.*;
+
+import lombok.ToString;
 
 @ToString
 public enum Joint {

@@ -1,4 +1,18 @@
 spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      org.hibernate.envers:
+        audit_table_suffix: _HIST
+        revision_field_name: REV_ID
+        revision_type_field_name: REV_TYPE
+        audit_strategy: org.hibernate.envers.strategy.ValidityAuditStrategy
+        audit_strategy_validity_end_rev_field_name: REV_END
+        audit_strategy_validity_store_revend_timestamp: true
+        global_with_modified_flag: true
+        modified_flag_suffix: _CHANGED
+        store_data_at_delete: true
   application:
     name: pi_fisio
   profiles:

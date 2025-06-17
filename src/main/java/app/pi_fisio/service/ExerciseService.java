@@ -1,7 +1,6 @@
 package app.pi_fisio.service;
 
 import app.pi_fisio.dto.ExerciseDTO;
-import app.pi_fisio.dto.ExerciseFilterDTO;
 import app.pi_fisio.dto.ExercisePageDTO;
 import app.pi_fisio.entity.*;
 import app.pi_fisio.infra.exception.ExerciseNotFoundException;
@@ -10,19 +9,15 @@ import app.pi_fisio.infra.exception.UserNotFoundException;
 import app.pi_fisio.queryfilters.ExerciseQueryFilter;
 import app.pi_fisio.repository.ExerciseRepository;
 import app.pi_fisio.repository.UserRepository;
-import app.pi_fisio.specifications.ExerciseSpec;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Service

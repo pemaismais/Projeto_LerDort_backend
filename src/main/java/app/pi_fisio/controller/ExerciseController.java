@@ -1,7 +1,6 @@
 package app.pi_fisio.controller;
 
 import app.pi_fisio.dto.ExerciseDTO;
-import app.pi_fisio.dto.ExerciseFilterDTO;
 import app.pi_fisio.dto.ExercisePageDTO;
 import app.pi_fisio.entity.Intensity;
 import app.pi_fisio.entity.Joint;
@@ -17,8 +16,6 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +23,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Set;
 @Log4j2
 @RestController
 @RequestMapping("/api/exercise")

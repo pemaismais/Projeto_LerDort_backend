@@ -3,7 +3,6 @@ package app.pi_fisio.queryfilters;
 import app.pi_fisio.entity.Exercise;
 import app.pi_fisio.entity.Intensity;
 import app.pi_fisio.entity.Joint;
-import app.pi_fisio.specifications.ExerciseSpec;
 import lombok.Data;
 import org.springframework.data.jpa.domain.Specification;
 

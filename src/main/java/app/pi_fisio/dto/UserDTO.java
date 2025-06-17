@@ -2,7 +2,6 @@ package app.pi_fisio.dto;
 
 import app.pi_fisio.entity.JointIntensity;
 import app.pi_fisio.entity.User;
-import app.pi_fisio.entity.UserRole;
 import lombok.*;
 import org.springframework.beans.BeanUtils;
 
