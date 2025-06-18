@@ -5,9 +5,6 @@ spring:
     username: ${DATABASE_USER:root}
     password: ${DATABASE_PASSWORD:root}
   jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
     show-sql: true
   security:
     user:

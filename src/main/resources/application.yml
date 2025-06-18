@@ -3,6 +3,8 @@ spring:
     hibernate:
       ddl-auto: update
     properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
       org.hibernate.envers:
         audit_table_suffix: _HIST
         revision_field_name: REV_ID
