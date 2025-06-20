@@ -1,9 +1,9 @@
 package app.pi_fisio.controller;
 
 import app.pi_fisio.dto.ExerciseAuditDTO;
-import app.pi_fisio.dto.ExerciseAuditPageDTO;
 import app.pi_fisio.dto.ExerciseDTO;
 import app.pi_fisio.dto.ExercisePageDTO;
+import app.pi_fisio.dto.PageDTO;
 import app.pi_fisio.entity.Intensity;
 import app.pi_fisio.entity.Joint;
 import app.pi_fisio.queryfilters.ExerciseQueryFilter;
@@ -131,14 +131,14 @@ public class ExerciseController {
     @Operation(summary = "Listar o histórico de revisões de exercícios")
     @GetMapping("/revisions")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ExerciseAuditPageDTO> getExerciseRevisions(
+    public ResponseEntity<PageDTO<ExerciseAuditDTO>> getExerciseRevisions(
             @RequestParam(required = false) Long exerciseId,
             @RequestParam(defaultValue = "0") @PositiveOrZero int page,
             @RequestParam(defaultValue = "10") @Positive @Max(100) int size) {
 
         log.info("Recebida requisição para listar revisões de exercícios. Exercise ID: {}, Página: {}, Tamanho: {}", exerciseId, page, size);
 
-        ExerciseAuditPageDTO response = auditService.getExerciseRevisions(exerciseId, page, size);
+        PageDTO<ExerciseAuditDTO> response = auditService.getExerciseRevisions(exerciseId, page, size);
         return ResponseEntity.ok(response);
     }
 }

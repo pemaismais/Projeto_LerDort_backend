@@ -28,34 +28,31 @@ public class UserService {
 
     private final JwtDecoder jwtDecoder;
 
-//    public UserDTO create(UserDTO userDTO) {
-//        User user = new User(userDTO);
-//        for (JointIntensity jointIntensity : user.getJointIntensities()) {
-//            jointIntensity.setUser(user);
-//        }
-//        log.info("Criando novo usuário: {}", user.getEmail());
-//        return new UserDTO(userRepository.save(user));
-//    }
+    @Deprecated
+    public UserDTO create(UserDTO userDTO) {
+        User user = new User(userDTO);
+        for (JointIntensity jointIntensity : user.getJointIntensities()) {
+            jointIntensity.setUser(user);
+        }
+        log.info("Criando novo usuário");
+        return new UserDTO(userRepository.save(user));
+    }
 
-//    public UserDTO update(Long id, UserDTO userDTO) {
-//        if (!userRepository.existsById(id)) {
-//            throw new UserNotFoundException("id", id.toString());
-//        }
-//        User user = new User(userDTO);
-//        user.setId(id);
-//        user.setUserId(
-//                userRepository.findById(id).get().getUserId()
-//        );
-//
-//        // Vincula user a cada JointIntensity
-//        for (JointIntensity ji : user.getJointIntensities()) {
-//            ji.setUser(user);
-//        }
-//
-//        log.info("Usuário atualizado com sucesso (ID: {})", id);
-//        return new UserDTO(userRepository.save(user));
-//    }
+    @Deprecated
+    public UserDTO update(Long id, UserDTO userDTO) {
+        User user = new User(userDTO);
+        user.setId(id);
 
+        // Vincula user a cada JointIntensity
+        for (JointIntensity ji : user.getJointIntensities()) {
+            ji.setUser(user);
+        }
+
+        log.info("Usuário atualizado com sucesso (ID: {})", id);
+        return new UserDTO(userRepository.save(user));
+    }
+
+    @Deprecated
     public void delete(Long id) {
         if (!userRepository.existsById(id)) {
             log.warn("Tentativa de exclusão falhou - Usuário não encontrado (ID: {})", id);

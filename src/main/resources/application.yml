@@ -12,6 +12,7 @@ spring:
         audit_strategy: org.hibernate.envers.strategy.ValidityAuditStrategy
         audit_strategy_validity_end_rev_field_name: REV_END
         audit_strategy_validity_store_revend_timestamp: true
+        track_entities_changed_in_revision: true
         global_with_modified_flag: true
         modified_flag_suffix: _CHANGED
         store_data_at_delete: true

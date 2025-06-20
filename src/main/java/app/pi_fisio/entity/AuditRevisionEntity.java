@@ -4,9 +4,11 @@ import app.pi_fisio.config.UserRevisionListener;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.envers.DefaultRevisionEntity;
+import org.hibernate.envers.DefaultTrackingModifiedEntitiesRevisionEntity;
 import org.hibernate.envers.RevisionEntity;
 
 
@@ -14,7 +16,7 @@ import org.hibernate.envers.RevisionEntity;
 @Getter
 @Setter
 @RevisionEntity(UserRevisionListener.class)
-public class AuditRevisionEntity extends DefaultRevisionEntity {
+public class AuditRevisionEntity extends DefaultTrackingModifiedEntitiesRevisionEntity {
     private String username;
 }
 

@@ -2,7 +2,7 @@ package app.pi_fisio.service;
 
 
 import app.pi_fisio.dto.ExerciseAuditDTO;
-import app.pi_fisio.dto.ExerciseAuditPageDTO;
+import app.pi_fisio.dto.PageDTO;
 import app.pi_fisio.entity.AuditRevisionEntity;
 import app.pi_fisio.entity.Exercise;
 import jakarta.persistence.EntityManager;
@@ -34,7 +34,7 @@ public class ExerciseAuditService {
     private final EntityManager entityManager;
 
     @Transactional(readOnly = true)
-    public ExerciseAuditPageDTO getExerciseRevisions(Long exerciseId, int page, int size) {
+    public PageDTO<ExerciseAuditDTO> getExerciseRevisions(Long exerciseId, int page, int size) {
         log.info("Buscando revisões para o exercício ID: {}", exerciseId);
 
         AuditReader auditReader = AuditReaderFactory.get(entityManager);
@@ -67,7 +67,7 @@ public class ExerciseAuditService {
         if (totalRevisions == 0) { // Se não houver revisões, o totalPages seja 0 e não 1
             totalPages = 0;
         }
-        return new ExerciseAuditPageDTO(revisionsDTO, totalRevisions, totalPages);
+        return new PageDTO<>(revisionsDTO, totalRevisions, totalPages);
 
     }
 
