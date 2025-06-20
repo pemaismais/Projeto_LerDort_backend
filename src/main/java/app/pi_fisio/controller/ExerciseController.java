@@ -1,10 +1,13 @@
 package app.pi_fisio.controller;
 
+import app.pi_fisio.dto.ExerciseAuditDTO;
+import app.pi_fisio.dto.ExerciseAuditPageDTO;
 import app.pi_fisio.dto.ExerciseDTO;
 import app.pi_fisio.dto.ExercisePageDTO;
 import app.pi_fisio.entity.Intensity;
 import app.pi_fisio.entity.Joint;
 import app.pi_fisio.queryfilters.ExerciseQueryFilter;
+import app.pi_fisio.service.ExerciseAuditService;
 import app.pi_fisio.service.ExerciseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -16,6 +19,7 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +35,9 @@ public class ExerciseController {
 
     @Autowired
     ExerciseService exerciseService;
+
+    @Autowired
+    ExerciseAuditService auditService;
 
     @Operation(summary = "Criar um novo exercício", description = "Apenas administradores podem criar exercícios.")
     @ApiResponses(value = {
@@ -86,7 +93,6 @@ public class ExerciseController {
             @ApiResponse(responseCode = "404", description = "Exercício não encontrado", content = @Content)
     })
     @GetMapping("/{id}")
-//    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ExerciseDTO> getExerciseById(@PathVariable Long id) throws Exception {
         log.info("Recebida requisição para buscar exercício ID {}", id);
         ExerciseDTO response = exerciseService.findById(id);
@@ -119,6 +125,20 @@ public class ExerciseController {
     public ResponseEntity<List<ExerciseDTO>> getByUser(@RequestParam Long userId) throws Exception {
         log.info("Recebida requisição para buscar exercícios recomendados para usuário ID {}", userId);
         List<ExerciseDTO> response = exerciseService.findByUser(userId);
+        return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "Listar o histórico de revisões de exercícios")
+    @GetMapping("/revisions")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ExerciseAuditPageDTO> getExerciseRevisions(
+            @RequestParam(required = false) Long exerciseId,
+            @RequestParam(defaultValue = "0") @PositiveOrZero int page,
+            @RequestParam(defaultValue = "10") @Positive @Max(100) int size) {
+
+        log.info("Recebida requisição para listar revisões de exercícios. Exercise ID: {}, Página: {}, Tamanho: {}", exerciseId, page, size);
+
+        ExerciseAuditPageDTO response = auditService.getExerciseRevisions(exerciseId, page, size);
         return ResponseEntity.ok(response);
     }
 }

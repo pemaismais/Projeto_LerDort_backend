@@ -1,5 +1,6 @@
 package app.pi_fisio.config;
 
+import app.pi_fisio.entity.AuditRevisionEntity;
 import org.hibernate.envers.RevisionListener;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

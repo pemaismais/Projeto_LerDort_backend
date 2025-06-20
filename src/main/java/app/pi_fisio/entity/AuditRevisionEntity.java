@@ -1,6 +1,9 @@
-package app.pi_fisio.config;
+package app.pi_fisio.entity;
 
+import app.pi_fisio.config.UserRevisionListener;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.envers.DefaultRevisionEntity;
