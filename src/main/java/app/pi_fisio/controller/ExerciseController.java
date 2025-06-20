@@ -128,17 +128,4 @@ public class ExerciseController {
         return ResponseEntity.ok(response);
     }
 
-    @Operation(summary = "Listar o histórico de revisões de exercícios")
-    @GetMapping("/revisions")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<PageDTO<ExerciseAuditDTO>> getExerciseRevisions(
-            @RequestParam(required = false) Long exerciseId,
-            @RequestParam(defaultValue = "0") @PositiveOrZero int page,
-            @RequestParam(defaultValue = "10") @Positive @Max(100) int size) {
-
-        log.info("Recebida requisição para listar revisões de exercícios. Exercise ID: {}, Página: {}, Tamanho: {}", exerciseId, page, size);
-
-        PageDTO<ExerciseAuditDTO> response = auditService.getExerciseRevisions(exerciseId, page, size);
-        return ResponseEntity.ok(response);
-    }
 }
